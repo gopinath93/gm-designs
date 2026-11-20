@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout
+  title={`Page Not Found (404) — ${siteConfig.name}`}
+  description="The page you were looking for could not be found. Explore GM Design services, portfolio, or get in touch."
+>
+  <section class="py-16 sm:py-24 bg-surface text-center">
+    <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-md mx-auto space-y-6">
+        <div class="w-16 h-16 rounded-full bg-slate-100 border border-border flex items-center justify-center font-mono font-bold text-xl text-ink mx-auto">
+          404
+        </div>
+
+        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-ink">
+          Page not found
+        </h1>
+
+        <p class="text-xs sm:text-base text-body leading-relaxed">
+          The page you requested may have moved or no longer exists. Use the links below to find what you need:
+        </p>
+
+        <!-- Quick Navigation Links -->
+        <div class="grid grid-cols-2 gap-3 text-xs sm:text-sm pt-2">
+          <a
+            href="/"
+            class="p-3 bg-surface-soft hover:bg-slate-200 border border-border rounded-md font-semibold text-ink transition-colors flex items-center justify-center min-h-[44px]"
+          >
+            Home
+          </a>
+          <a
+            href="/services/"
+            class="p-3 bg-surface-soft hover:bg-slate-200 border border-border rounded-md font-semibold text-ink transition-colors flex items-center justify-center min-h-[44px]"
+          >
+            All Services
+          </a>
+          <a
+            href="/portfolio/"
+            class="p-3 bg-surface-soft hover:bg-slate-200 border border-border rounded-md font-semibold text-ink transition-colors flex items-center justify-center min-h-[44px]"
+          >
+            Portfolio
+          </a>
+          <a
+            href="/contact/"
+            class="p-3 bg-surface-soft hover:bg-slate-200 border border-border rounded-md font-semibold text-ink transition-colors flex items-center justify-center min-h-[44px]"
+          >
+            Contact
+          </a>
+        </div>
+
+        <div class="pt-4 border-t border-border">
+          <Button href="/" variant="primary" size="md">
+            Return to Homepage &rarr;
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

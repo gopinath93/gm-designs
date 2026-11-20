@@ -1,0 +1,89 @@
+---
+import PlaceholderChip from './PlaceholderChip.astro';
+
+interface Props {
+  quote: string;
+  authorName: string;
+  authorRole?: string;
+  companyName: string;
+  companyUrl?: string;
+  photoUrl?: string;
+  isVerified?: boolean;
+  class?: string;
+}
+
+const {
+  quote,
+  authorName,
+  authorRole,
+  companyName,
+  companyUrl,
+  photoUrl,
+  isVerified = false,
+  class: className = '',
+} = Astro.props;
+---
+
+<figure
+  class:list={[
+    'flex flex-col justify-between p-4 sm:p-7 rounded-lg border border-border bg-surface',
+    className,
+  ]}
+>
+  <blockquote class="text-body text-xs sm:text-base leading-relaxed italic">
+    "{quote}"
+  </blockquote>
+
+  <figcaption class="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-border flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-2.5 sm:gap-3">
+      {photoUrl ? (
+        <img
+          src={photoUrl}
+          alt={authorName}
+          class="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover border border-border"
+          width="40"
+          height="40"
+          loading="lazy"
+        />
+      ) : (
+        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-100 border border-border flex items-center justify-center font-bold text-ink text-xs sm:text-sm shrink-0">
+          {authorName.charAt(0)}
+        </div>
+      )}
+      <div>
+        <div class="font-bold text-ink text-xs sm:text-sm leading-snug">
+          {authorName.includes('CONFIRM') ? (
+            <PlaceholderChip needed="verified client name">{authorName}</PlaceholderChip>
+          ) : (
+            authorName
+          )}
+        </div>
+        <div class="text-[11px] sm:text-xs text-ink-muted">
+          {authorRole ? `${authorRole}, ` : ''}
+          {companyUrl ? (
+            <a
+              href={companyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-accent hover:underline"
+            >
+              {companyName}
+            </a>
+          ) : (
+            <span>{companyName}</span>
+          )}
+        </div>
+      </div>
+    </div>
+
+    {isVerified ? (
+      <span class="text-[10px] sm:text-[11px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 shrink-0">
+        Verified Client
+      </span>
+    ) : (
+      <PlaceholderChip needed="permission & link" class="shrink-0 text-[10px]">
+        [[CONFIRM]]
+      </PlaceholderChip>
+    )}
+  </figcaption>
+</figure>

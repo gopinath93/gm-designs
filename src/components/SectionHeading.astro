@@ -1,0 +1,47 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  align?: 'left' | 'center';
+  level?: 'h1' | 'h2' | 'h3';
+  class?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  description,
+  align = 'left',
+  level = 'h2',
+  class: className = '',
+} = Astro.props;
+
+const HeadingTag = level;
+---
+
+<div
+  class:list={[
+    'space-y-1.5 sm:space-y-2 mb-5 sm:mb-8 md:mb-9',
+    align === 'center' ? 'text-center mx-auto' : 'text-left',
+    className,
+  ]}
+>
+  {eyebrow && (
+    <div class="inline-flex items-center gap-2">
+      <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-accent bg-accent-soft border border-blue-100 px-2 py-0.5 rounded">
+        {eyebrow}
+      </span>
+    </div>
+  )}
+
+  <HeadingTag class="text-lg sm:text-xl lg:text-2xl font-bold tracking-tight text-ink leading-snug">
+    {title}
+  </HeadingTag>
+
+  {description && (
+    <p class="text-xs sm:text-sm text-body/90 max-w-2xl leading-relaxed">
+      {description}
+    </p>
+  )}
+</div>

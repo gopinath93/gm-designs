@@ -1,0 +1,384 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import Button from '../../components/Button.astro';
+import FAQ from '../../components/FAQ.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import PlaceholderChip from '../../components/PlaceholderChip.astro';
+import ProofCard from '../../components/ProofCard.astro';
+import { servicesData, type SubService } from '../../data/services';
+import { siteConfig } from '../../config/site';
+
+export function getStaticPaths() {
+  return servicesData.map((service) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+
+interface Props {
+  service: SubService;
+}
+
+const { service } = Astro.props;
+
+// Construct JSON-LD Service Schema for rich search results
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: service.serviceName,
+  serviceType: service.isAi ? 'Artificial Intelligence Service' : 'Digital Web Service',
+  description: service.outcomeH1,
+  provider: {
+    '@type': 'ProfessionalService',
+    name: siteConfig.name,
+    url: siteConfig.url,
+  },
+  areaServed: {
+    '@type': 'Country',
+    name: 'India',
+  },
+  offers: {
+    '@type': 'Offer',
+    priceCurrency: 'INR',
+    description: service.timeAndPrice.suggestedPrice,
+  },
+};
+---
+
+<BaseLayout
+  title={`${service.serviceName} for Businesses — GM Design`}
+  description={`${service.outcomeH1}. ${service.whoThisIsFor}`}
+  jsonLd={serviceSchema}
+>
+  <!-- ========================================== -->
+  <!-- 1. HERO & OUTCOME H1 (Plain Words) -->
+  <!-- ========================================== -->
+  <section class="pt-8 pb-12 sm:pt-14 sm:pb-16 bg-surface border-b border-border">
+    <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Breadcrumb navigation -->
+      <nav class="flex items-center gap-2 text-xs text-ink-muted mb-4" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-accent transition-colors">Home</a>
+        <span aria-hidden="true">&bull;</span>
+        <a href="/services/" class="hover:text-accent transition-colors">Services</a>
+        <span aria-hidden="true">&bull;</span>
+        <span class="text-ink font-semibold" aria-current="page">{service.serviceName}</span>
+      </nav>
+
+      <div class="max-w-3xl space-y-4">
+        <!-- Eyebrow with service categorization -->
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs font-bold uppercase tracking-wider text-accent bg-accent-soft px-2.5 py-0.5 rounded border border-blue-100">
+            {service.isAi ? 'AI Service' : 'Websites & Marketing'} &bull; {service.serviceName}
+          </span>
+          {service.badge && (
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-800 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+              {service.badge}
+            </span>
+          )}
+        </div>
+
+        <!-- Section 6 Template Requirement 1: H1 = the outcome in plain words -->
+        <h1 class="text-xl sm:text-3xl lg:text-[34px] font-bold tracking-tight text-ink leading-snug">
+          {service.outcomeH1}
+        </h1>
+
+        <p class="text-xs sm:text-base text-body leading-relaxed max-w-prose">
+          {service.cardSummary}
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+          <Button href={siteConfig.bookingUrl} target="_blank" rel="noopener noreferrer" variant="primary" size="lg" class="text-center justify-center">
+            Book a free 30-minute call
+          </Button>
+          <a
+            href={siteConfig.whatsappHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center gap-2 min-h-tap py-3 px-5 text-sm font-semibold text-ink bg-surface-soft hover:bg-slate-200 rounded-md border border-border transition-colors text-center"
+          >
+            <span>Prefer WhatsApp? Message us</span>
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+
+        <p class="text-xs text-ink-muted pt-1">
+          Fixed-price proposal in writing &bull; Reply within 1 working day &bull; No sales pressure
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 2. WHO THIS IS FOR & THE PROBLEM IT SOLVES -->
+  <!-- ========================================== -->
+  <section class="py-10 sm:py-16 bg-surface-soft border-b border-border" aria-labelledby="problem-heading">
+    <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Who This Is For -->
+        <div class="p-5 sm:p-7 rounded-lg border border-border bg-surface space-y-3">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-accent"></span>
+            <h2 id="problem-heading" class="text-base sm:text-lg font-bold text-ink">
+              Who this is for
+            </h2>
+          </div>
+          <p class="text-xs sm:text-base text-body leading-relaxed">
+            {service.whoThisIsFor}
+          </p>
+        </div>
+
+        <!-- The Problem It Solves -->
+        <div class="p-5 sm:p-7 rounded-lg border border-border bg-surface space-y-3">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+            <h2 class="text-base sm:text-lg font-bold text-ink">
+              The problem it solves
+            </h2>
+          </div>
+          <p class="text-xs sm:text-base text-body leading-relaxed">
+            {service.problemItSolves}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 3. WHAT YOU GET (5-7 Concrete Deliverables) -->
+  <!-- ========================================== -->
+  <section class="py-10 sm:py-18 bg-surface border-b border-border" aria-labelledby="deliverables-heading">
+    <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow="Deliverables"
+        title="What you get (in writing)"
+        description="Every deliverable is spelled out in your proposal before we start. No hidden add-ons or vague promises."
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl">
+        {
+          service.whatYouGet.map((deliverable, index) => (
+            <div class="p-4 sm:p-5 rounded-lg border border-border bg-surface-soft/60 flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
+                ✓
+              </span>
+              <p class="text-xs sm:text-sm text-ink font-medium leading-relaxed">
+                {deliverable}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 4. HOW IT WORKS (3-4 Steps with Time) -->
+  <!-- ========================================== -->
+  <section class="py-10 sm:py-18 bg-surface-soft border-b border-border" aria-labelledby="steps-heading">
+    <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow="Implementation Roadmap"
+        title="How it works (step by step)"
+        description="Transparent timeline from initial discussion to live deployment on your real data."
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        {
+          service.howItWorks.map((st) => (
+            <div class="flex flex-col justify-between p-4 sm:p-6 rounded-lg border border-border bg-surface">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-xl sm:text-2xl font-mono font-bold text-accent">
+                    {st.step}
+                  </span>
+                  <span class="text-[11px] sm:text-xs font-semibold text-ink-muted bg-surface-soft px-2 py-0.5 rounded border border-border">
+                    {st.duration}
+                  </span>
+                </div>
+                <h3 class="text-sm sm:text-base font-bold text-ink leading-snug">
+                  {st.title}
+                </h3>
+                <p class="mt-2 text-xs sm:text-sm text-body leading-relaxed">
+                  {st.description}
+                </p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 5. TIME AND PRICE (What's in & What's extra) -->
+  <!-- ========================================== -->
+  <section class="py-10 sm:py-18 bg-surface border-b border-border" aria-labelledby="pricing-heading">
+    <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow="Investment & Scope"
+        title="Timeline & Starting Price"
+        description="Clear upfront pricing. We explain exactly what is covered and what third-party services cost extra."
+      />
+
+      <div class="max-w-3xl rounded-xl border border-border bg-surface p-5 sm:p-8 space-y-6 shadow-card">
+        <!-- Main Price Display -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-border">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-ink-muted block mb-1">
+              Estimated Timeline
+            </span>
+            <span class="text-base sm:text-lg font-bold text-ink">
+              {service.timeAndPrice.timeline}
+            </span>
+          </div>
+
+          <div class="sm:text-right">
+            <span class="text-xs font-bold uppercase tracking-wider text-accent block mb-1">
+              Starting Investment
+            </span>
+            <div class="text-xl sm:text-2xl font-bold text-ink">
+              {service.timeAndPrice.startingPrice.includes('CONFIRM') ? (
+                <PlaceholderChip needed={`price for ${service.serviceName}`}>
+                  {service.timeAndPrice.suggestedPrice}
+                </PlaceholderChip>
+              ) : (
+                service.timeAndPrice.startingPrice
+              )}
+            </div>
+            <span class="text-xs text-ink-muted">Fixed milestone pricing in writing</span>
+          </div>
+        </div>
+
+        <!-- Inclusions vs Exclusions Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+          <!-- What is included -->
+          <div class="space-y-3">
+            <h3 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-emerald-800 flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+              What is included
+            </h3>
+            <ul class="space-y-2 text-xs sm:text-sm text-body">
+              {service.timeAndPrice.included.map((item) => (
+                <li class="flex items-start gap-2">
+                  <span class="text-accent font-bold">&bull;</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- What costs extra -->
+          <div class="space-y-3">
+            <h3 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-ink-muted flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-slate-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-7-4a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM9 9a.75.75 0 0 0 0 1.5h.253a.25.25 0 0 1 .244.304l-.459 2.066A1.75 1.75 0 0 0 10.747 15H11a.75.75 0 0 0 0-1.5h-.253a.25.25 0 0 1-.244-.304l.459-2.066A1.75 1.75 0 0 0 9.253 9H9Z" clip-rule="evenodd" />
+              </svg>
+              What costs extra (billed at actual cost)
+            </h3>
+            <ul class="space-y-2 text-xs sm:text-sm text-ink-muted">
+              {service.timeAndPrice.notIncluded.map((item) => (
+                <li class="flex items-start gap-2">
+                  <span class="text-slate-400">&bull;</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 6. ONE RELEVANT PROOF BLOCK -->
+  <!-- ========================================== -->
+  <section class="py-10 sm:py-18 bg-surface-soft border-b border-border" aria-labelledby="proof-heading">
+    <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow="Verified Evidence"
+        title="Proof: Real Work or Free Demo"
+        description="Rule 3: Proof beats claims. We show a real matching case study, or offer a free test on your own data. Never an unrelated quote."
+      />
+
+      <div class="max-w-3xl">
+        {service.proofBlock.hasCaseStudy ? (
+          <ProofCard
+            title={service.proofBlock.title}
+            slug={service.proofBlock.caseStudySlug || service.slug}
+            category={service.serviceName}
+            status={
+              service.proofBlock.badge === 'In-house prototype'
+                ? 'prototype'
+                : service.proofBlock.badge === 'Pilot'
+                  ? 'pilot'
+                  : 'client'
+            }
+            clientType={service.whoThisIsFor}
+            problem={service.proofBlock.problem || service.problemItSolves}
+            solution={service.proofBlock.solution || service.cardSummary}
+            result={service.proofBlock.result}
+          />
+        ) : (
+          <!-- No case study yet: Show "How we will prove it: free 30-minute demo on your own data" -->
+          <div class="p-5 sm:p-7 rounded-lg border border-blue-200 bg-surface shadow-card space-y-3.5">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-accent bg-accent-soft px-2.5 py-0.5 rounded border border-blue-100">
+                How We Prove It
+              </span>
+              <span class="text-xs font-medium text-blue-800 bg-blue-50 px-2 py-0.5 rounded">
+                Free 30-Minute Demo
+              </span>
+            </div>
+
+            <h3 class="text-lg sm:text-xl font-bold text-ink">
+              {service.proofBlock.title}
+            </h3>
+
+            <p class="text-xs sm:text-base text-body leading-relaxed">
+              {service.proofBlock.result}
+            </p>
+
+            <div class="pt-2">
+              <Button href="/contact/" variant="primary" size="md">
+                Request free test on your data &rarr;
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 7. SERVICE-SPECIFIC FAQS (4-5 Items) -->
+  <!-- ========================================== -->
+  <section class="py-10 sm:py-18 bg-surface border-b border-border" aria-labelledby="service-faq-heading">
+    <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        align="center"
+        eyebrow="Frequently Asked Questions"
+        title={`Questions about ${service.serviceName}`}
+        description="Straightforward answers about technology, data privacy, language, and maintenance."
+      />
+
+      <FAQ items={service.faqs} />
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 8. CTA BAND -->
+  <!-- ========================================== -->
+  <section class="py-10 sm:py-18 bg-surface-soft" aria-label="Book a consultation">
+    <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+      <CtaBand
+        headline={`Ready to discuss ${service.serviceName}?`}
+        subheadline="Book a free 30-minute call. We listen to your workflow, confirm if it is feasible, and send you a fixed-price written proposal in 2 working days."
+        showForm={true}
+      />
+    </div>
+  </section>
+</BaseLayout>

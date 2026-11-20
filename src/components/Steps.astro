@@ -1,0 +1,105 @@
+---
+import PlaceholderChip from './PlaceholderChip.astro';
+
+export interface StepItem {
+  number: string;
+  title: string;
+  duration?: string;
+  description: string;
+  deliverable?: string;
+}
+
+interface Props {
+  steps?: StepItem[];
+  clientRequirement?: string;
+  class?: string;
+}
+
+const defaultSteps: StepItem[] = [
+  {
+    number: '01',
+    title: 'Free listening call',
+    duration: '30 minutes',
+    description: 'We listen to your day-to-day bottlenecks and enquiry flow. No slide decks, no hard pitch. We tell you honestly if AI is NOT the right tool.',
+    deliverable: 'Clarity on feasibility',
+  },
+  {
+    number: '02',
+    title: 'Fixed-scope written proposal',
+    duration: '2 working days',
+    description: 'A plain-English proposal: exactly what we build, the exact milestone price, delivery timeline, and what inputs we need from you.',
+    deliverable: 'Written milestone agreement',
+  },
+  {
+    number: '03',
+    title: 'Build & test with real data',
+    duration: '1 to 2 weeks',
+    description: 'We build the agent or automation and test it on your actual past inquiries or documents. You inspect and approve it before anyone else touches it.',
+    deliverable: 'Private working demo',
+  },
+  {
+    number: '04',
+    title: 'Safe rollout & support',
+    duration: 'Ongoing',
+    description: 'We deploy the system with strict human fallback safeguards. You get ongoing monitoring, monthly usage reports, and prompt adjustments.',
+    deliverable: 'Production system + report',
+  },
+];
+
+const {
+  steps = defaultSteps,
+  clientRequirement = '[[CONFIRM: e.g. FAQs, price list, a sample of past enquiries]]',
+  class: className = '',
+} = Astro.props;
+---
+
+<div class:list={['space-y-6 sm:space-y-8', className]}>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+    {
+      steps.map((step) => (
+        <div class="relative flex flex-col justify-between p-4 sm:p-6 rounded-lg border border-border bg-surface">
+          <div>
+            <div class="flex items-center justify-between mb-3 sm:mb-4">
+              <span class="text-xl sm:text-2xl font-mono font-bold text-accent">
+                {step.number}
+              </span>
+              {step.duration && (
+                <span class="text-[11px] sm:text-xs font-semibold text-ink-muted bg-surface-soft px-2 py-0.5 sm:px-2.5 sm:py-1 rounded border border-border">
+                  {step.duration}
+                </span>
+              )}
+            </div>
+
+            <h3 class="text-base sm:text-lg font-bold text-ink leading-snug">
+              {step.title}
+            </h3>
+
+            <p class="mt-2 text-xs sm:text-sm text-body leading-relaxed">
+              {step.description}
+            </p>
+          </div>
+
+          {step.deliverable && (
+            <div class="mt-4 sm:mt-5 pt-3 border-t border-border text-xs">
+              <span class="text-ink-muted">Deliverable: </span>
+              <span class="font-semibold text-ink">{step.deliverable}</span>
+            </div>
+          )}
+        </div>
+      ))
+    }
+  </div>
+
+  <!-- What the client needs to provide block -->
+  <div class="p-3.5 sm:p-5 rounded-lg bg-surface-soft border border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 sm:gap-3 text-xs sm:text-sm">
+    <div class="flex items-center gap-2 shrink-0">
+      <span class="w-2 h-2 rounded-full bg-accent shrink-0"></span>
+      <span class="font-semibold text-ink">What you will need to give us:</span>
+    </div>
+    <div class="text-body font-medium">
+      <PlaceholderChip needed="exact required client inputs (e.g. FAQs, price list, sample past chats)">
+        {clientRequirement}
+      </PlaceholderChip>
+    </div>
+  </div>
+</div>

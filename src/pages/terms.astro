@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PlaceholderChip from '../components/PlaceholderChip.astro';
+import { siteConfig } from '../config/site';
+
+const lastUpdated = 'November 2024';
+---
+
+<BaseLayout
+  title={`Terms of Service — ${siteConfig.name}`}
+  description="Plain-language terms of service for GM Design. Milestone payments, 100% intellectual property ownership transfer, and clear client protections."
+>
+  <article class="py-10 sm:py-16 bg-surface">
+    <div class="max-w-prose mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <!-- Header -->
+      <div class="space-y-3 pb-6 border-b border-border">
+        <!-- Legal review alert -->
+        <div class="p-3 bg-amber-50 rounded-md border border-amber-200 text-xs text-amber-900 font-medium">
+          <strong>Draft for Review:</strong> These terms of service reflect our standard commercial practices: fixed milestone pricing, 100% IP ownership transfer, and zero proprietary lock-in. They are provided as an operational draft to be reviewed by qualified legal counsel.
+        </div>
+
+        <h1 class="text-2xl sm:text-4xl font-bold tracking-tight text-ink">
+          Terms of Service
+        </h1>
+        <p class="text-xs text-ink-muted">
+          Last Updated: {lastUpdated} &bull; Entity: <strong class="text-ink">GM Design</strong>
+        </p>
+      </div>
+
+      <!-- Section 1: Engagement Model -->
+      <section class="space-y-3 text-xs sm:text-base text-body leading-relaxed">
+        <h2 class="text-lg sm:text-xl font-bold text-ink">1. How We Work (Written Proposals)</h2>
+        <p>
+          Before any billable work starts, GM Design delivers a written, fixed-scope proposal. This document defines the exact deliverables, delivery timeline, client asset requirements, and fixed milestone pricing. We do not engage in unapproved hourly billing.
+        </p>
+      </section>
+
+      <!-- Section 2: Milestone Payments -->
+      <section class="space-y-3 text-xs sm:text-base text-body leading-relaxed">
+        <h2 class="text-lg sm:text-xl font-bold text-ink">2. Milestone Payments & Approvals</h2>
+        <p>
+          Standard projects follow a staged milestone payment structure:
+        </p>
+        <ul class="space-y-2 list-disc pl-5">
+          <li><strong>Kickoff Deposit (typically 40% to 50%):</strong> Due upon proposal sign-off to initiate architecture and asset preparation.</li>
+          <li><strong>Midpoint Review (if applicable):</strong> Payable upon review of the working private demo on staging servers.</li>
+          <li><strong>Final Balance (typically 50%):</strong> Due only after you inspect and approve the completed system on your live environment.</li>
+        </ul>
+      </section>
+
+      <!-- Section 3: Intellectual Property & Ownership -->
+      <section class="space-y-3 text-xs sm:text-base text-body leading-relaxed">
+        <h2 class="text-lg sm:text-xl font-bold text-ink">3. 100% Intellectual Property Ownership</h2>
+        <p>
+          Unlike agencies that charge ongoing license fees for custom code, <strong>you own 100% of your completed system upon final payment</strong>.
+        </p>
+        <ul class="space-y-2 list-disc pl-5">
+          <li>All custom code, script workflows, and tailored prompts belong exclusively to your business.</li>
+          <li>All WhatsApp Business API accounts, hosting accounts, and domain names are registered directly in your company's name.</li>
+          <li>You are free to modify, host, or transfer the code to any internal staff or external developer at any time without penalty.</li>
+        </ul>
+      </section>
+
+      <!-- Section 4: Client Obligations -->
+      <section class="space-y-3 text-xs sm:text-base text-body leading-relaxed">
+        <h2 class="text-lg sm:text-xl font-bold text-ink">4. Client Responsibilities & Assets</h2>
+        <p>
+          To maintain delivery timelines, the client agrees to provide required business documents (product catalogs, approved price lists, FAQs, and API credentials) within agreed turnaround times. The client confirms they hold full legal rights to all trademarks, logos, and materials provided to GM Design.
+        </p>
+      </section>
+
+      <!-- Section 5: Third-Party APIs & Usage Fees -->
+      <section class="space-y-3 text-xs sm:text-base text-body leading-relaxed">
+        <h2 class="text-lg sm:text-xl font-bold text-ink">5. Third-Party Platform Costs</h2>
+        <p>
+          Our project fees cover engineering, prompt tuning, integration, and initial support. Direct third-party utility fees (e.g. Meta WhatsApp conversation charges, commercial AI model API tokens, and cloud hosting fees) are billed directly to your company account at actual cost with zero agency markup.
+        </p>
+      </section>
+
+      <!-- Section 6: Warranty & Support -->
+      <section class="space-y-3 text-xs sm:text-base text-body leading-relaxed">
+        <h2 class="text-lg sm:text-xl font-bold text-ink">6. 30-Day Post-Launch Warranty</h2>
+        <p>
+          Every build includes a 30-day warranty starting from the day your system goes live. During this period, GM Design will promptly correct any functional bugs or workflow failures that deviate from the agreed proposal at zero extra charge. Ongoing maintenance packages are available thereafter.
+        </p>
+      </section>
+
+      <!-- Section 7: Governing Law -->
+      <section class="space-y-3 text-xs sm:text-base text-body leading-relaxed">
+        <h2 class="text-lg sm:text-xl font-bold text-ink">7. Governing Law & Jurisdiction</h2>
+        <p>
+          These terms and all commercial proposals are governed by the laws of India. Any disputes arising shall be subject to the exclusive jurisdiction of the competent courts in <strong>Karur</strong>, India.
+        </p>
+        <p class="pt-2">
+          Questions regarding these terms may be directed to <a href={`mailto:${siteConfig.email}`} class="text-accent underline">{siteConfig.email}</a>.
+        </p>
+      </section>
+    </div>
+  </article>
+</BaseLayout>

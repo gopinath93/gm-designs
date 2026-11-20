@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PlaceholderChip from '../components/PlaceholderChip.astro';
+import { siteConfig } from '../config/site';
+
+const lastUpdated = 'November 2024';
+---
+
+<BaseLayout
+  title={`Privacy Policy — ${siteConfig.name}`}
+  description="Plain-language privacy policy for GM Design. Built with India's Digital Personal Data Protection (DPDP) Act 2023 principles. Zero tracking cookies."
+>
+  <article class="py-10 sm:py-16 bg-surface">
+    <div class="max-w-prose mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <!-- Header -->
+      <div class="space-y-3 pb-6 border-b border-border">
+        <!-- Legal review alert -->
+        <div class="p-3 bg-amber-50 rounded-md border border-amber-200 text-xs text-amber-900 font-medium">
+          <strong>Draft for Review:</strong> This privacy policy is a plain-language operational draft reflecting our actual data practices and India's Digital Personal Data Protection (DPDP) Act 2023 principles. It should be reviewed by a qualified Indian legal counsel before formal statutory filings.
+        </div>
+
+        <h1 class="text-2xl sm:text-4xl font-bold tracking-tight text-ink">
+          Privacy Policy
+        </h1>
+        <p class="text-xs text-ink-muted">
+          Last Updated: {lastUpdated} &bull; Entity: <strong class="text-ink">GM Design</strong>
+        </p>
+      </div>
+
+      <!-- Section 1: Plain Promise -->
+      <section class="space-y-3 text-xs sm:text-base text-body leading-relaxed">
+        <h2 class="text-lg sm:text-xl font-bold text-ink">1. Our Core Promise</h2>
+        <p>
+          At GM Design, we believe privacy is about respect, not legal gymnastics. We do not sell your personal data, we do not use tracking cookies on our website, and we never use your private business records or customer WhatsApp conversations to train public artificial intelligence models.
+        </p>
+      </section>
+
+      <!-- Section 2: Data We Collect -->
+      <section class="space-y-3 text-xs sm:text-base text-body leading-relaxed">
+        <h2 class="text-lg sm:text-xl font-bold text-ink">2. What Data We Collect & Why</h2>
+        <ul class="space-y-2 list-disc pl-5">
+          <li>
+            <strong>Contact Form Enquiries:</strong> When you submit an enquiry on our website, we collect your name, WhatsApp/phone number, email address (if provided), and requirement. We use this strictly to contact you regarding your request.
+          </li>
+          <li>
+            <strong>WhatsApp Messages:</strong> When you message our official WhatsApp lines, your message content and phone number are processed to answer your query and provide project proposals.
+          </li>
+          <li>
+            <strong>Client Operational Data:</strong> If you engage us to build an AI agent or automation, you may provide sample customer FAQs, price sheets, or purchase order PDFs. This data is stored in your private accounts and accessed solely for configuring your system.
+          </li>
+          <li>
+            <strong>Website Analytics:</strong> We use privacy-friendly, cookie-free analytics (Cloudflare Web Analytics). We do not store cookies on your device and do not track your activity across other websites.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Section 3: Alignment with DPDP 2023 -->
+      <section class="space-y-3 text-xs sm:text-base text-body leading-relaxed">
+        <h2 class="text-lg sm:text-xl font-bold text-ink">3. Design Principles Under India's DPDP Act 2023</h2>
+        <p>
+          We build our workflows and client systems in alignment with the core principles of India's Digital Personal Data Protection Act 2023:
+        </p>
+        <ul class="space-y-2 list-disc pl-5">
+          <li><strong>Purpose Limitation:</strong> Data is used only for the purpose for which you granted explicit consent.</li>
+          <li><strong>Data Minimization:</strong> We ask only for the minimum information necessary to execute the requested service.</li>
+          <li><strong>Right to Erasure:</strong> You can request complete deletion of your contact records or client staging data at any time by emailing <a href={`mailto:${siteConfig.email}`} class="text-accent underline">{siteConfig.email}</a>.</li>
+        </ul>
+      </section>
+
+      <!-- Section 4: AI & Third-Party Processors -->
+      <section class="space-y-3 text-xs sm:text-base text-body leading-relaxed">
+        <h2 class="text-lg sm:text-xl font-bold text-ink">4. Third-Party Service Providers</h2>
+        <p>
+          To deliver modern digital systems, we connect with reputable infrastructure providers under strict confidentiality:
+        </p>
+        <ul class="space-y-2 list-disc pl-5">
+          <li><strong>Meta (WhatsApp Cloud API):</strong> Message transmission for WhatsApp assistants operates over Meta’s enterprise infrastructure.</li>
+          <li><strong>Commercial AI APIs (Anthropic / Google / OpenAI):</strong> We connect exclusively through enterprise API tiers where terms legally guarantee that customer data is not used for model training.</li>
+          <li><strong>Cloudflare:</strong> Website hosting, DDoS protection, and serverless functions with data encrypted in transit.</li>
+          <li><strong>Resend:</strong> Secure transactional email delivery for contact form notifications.</li>
+        </ul>
+      </section>
+
+      <!-- Section 5: Grievance Officer -->
+      <section class="space-y-3 text-xs sm:text-base text-body leading-relaxed">
+        <h2 class="text-lg sm:text-xl font-bold text-ink">5. Grievances & Contact</h2>
+        <p>
+          For any privacy questions, data deletion requests, or grievances under Indian data protection laws, please contact our designated grievance coordinator:
+        </p>
+        <div class="p-4 bg-surface-soft rounded-lg border border-border text-xs sm:text-sm space-y-1">
+          <p><strong>Entity:</strong> GM Design</p>
+          <p><strong>Email:</strong> <a href={`mailto:${siteConfig.email}`} class="text-accent underline font-medium">{siteConfig.email}</a></p>
+          <p><strong>Physical Address:</strong> Vengamedu, Karur, Tamil Nadu</p>
+          <p><strong>Response Commitment:</strong> Within 1 working day (statutory acknowledgement within 48 hours).</p>
+        </div>
+      </section>
+    </div>
+  </article>
+</BaseLayout>

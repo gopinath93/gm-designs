@@ -1,0 +1,117 @@
+---
+// A clean, realistic, accessible mock of a WhatsApp AI conversation
+// Explicitly labelled "Demo conversation (Tamil & English)" per Section 7 Rule 2
+---
+
+<div
+  class="w-full max-w-sm sm:max-w-md mx-auto rounded-xl border border-slate-300 shadow-elevated bg-[#ECE5DD] overflow-hidden text-xs sm:text-sm font-sans"
+  aria-label="Demo of a WhatsApp AI Agent conversation"
+>
+  <!-- WhatsApp Header -->
+  <div class="bg-[#075E54] text-white px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between">
+    <div class="flex items-center gap-2.5 sm:gap-3">
+      <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-teal-800 border border-teal-600 flex items-center justify-center font-bold text-white text-xs sm:text-sm shrink-0">
+        GM
+      </div>
+      <div>
+        <div class="font-semibold text-xs sm:text-sm leading-tight flex items-center gap-1.5">
+          <span>ABC Textiles Assistant</span>
+          <svg class="w-3.5 h-3.5 text-emerald-300 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <div class="text-[10px] sm:text-[11px] text-teal-100 flex items-center gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          <span>Online &bull; Business Agent</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Demo badge -->
+    <span class="text-[9px] sm:text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-teal-900/80 text-teal-200 border border-teal-700 shrink-0">
+      Demo
+    </span>
+  </div>
+
+  <!-- Chat Body with WhatsApp Doodle Background look -->
+  <div class="p-3 sm:p-3.5 space-y-2 sm:space-y-2.5 bg-[#EFEAE2] flex flex-col justify-end">
+    <!-- Date pill -->
+    <div class="flex justify-center">
+      <span class="text-[10px] uppercase font-medium bg-white/90 text-slate-600 px-2 py-0.5 rounded shadow-xs border border-slate-200">
+        Today &bull; 10:14 PM
+      </span>
+    </div>
+
+    <!-- Buyer message (incoming, white bubble on left) -->
+    <div class="flex flex-col items-start max-w-[88%] self-start">
+      <div class="bg-white rounded-lg rounded-tl-none p-2.5 sm:p-3 shadow-xs border border-slate-200/80 text-ink space-y-1">
+        <p class="text-[11px] font-semibold text-teal-800">Overseas Buyer</p>
+        <p class="leading-relaxed text-xs sm:text-[13px]">
+          Hi, do you have sample swatches for 300 TC cotton bedsheets? Need export price for 500 sets.
+        </p>
+        <div class="text-[9px] text-slate-400 text-right">
+          10:14 PM
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Agent message (outgoing, green bubble on right) -->
+    <div class="flex flex-col items-end max-w-[92%] self-end">
+      <div class="bg-[#E7F8E8] rounded-lg rounded-tr-none p-2.5 sm:p-3 shadow-xs border border-emerald-200/80 text-ink space-y-1.5">
+        <p class="leading-relaxed text-xs sm:text-[13px]">
+          வணக்கம்! Yes, we have 300 TC combed cotton in 4 shades. Export price is ₹620/set for 500 pcs FOB Tuticorin.
+        </p>
+        
+        <!-- Attached PDF mockup -->
+        <div class="p-2 bg-white/90 rounded border border-emerald-200 flex items-center gap-2 text-xs">
+          <div class="w-6 h-6 bg-rose-100 rounded text-rose-700 flex items-center justify-center font-bold text-[9px] shrink-0">
+            PDF
+          </div>
+          <div class="flex-1 min-w-0">
+            <span class="font-medium text-ink block truncate text-[11px]">300TC_Cotton_Spec.pdf</span>
+            <span class="text-[9px] text-slate-500">240 KB &bull; Spec Sheet</span>
+          </div>
+        </div>
+
+        <p class="leading-relaxed text-xs sm:text-[13px]">
+          Would you like sample swatches couriered to your office?
+        </p>
+
+        <div class="text-[9px] text-slate-500 text-right flex items-center justify-end gap-1">
+          <span>10:14 PM</span>
+          <span class="text-sky-600 font-bold">✓✓</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Buyer reply -->
+    <div class="flex flex-col items-start max-w-[88%] self-start">
+      <div class="bg-white rounded-lg rounded-tl-none p-2 sm:p-2.5 shadow-xs border border-slate-200/80 text-ink">
+        <p class="leading-relaxed text-xs sm:text-[13px]">
+          Yes please, to our Tirupur office tomorrow.
+        </p>
+        <div class="text-[9px] text-slate-400 text-right">
+          10:15 PM
+        </div>
+      </div>
+    </div>
+
+    <!-- Human Handover Notification message -->
+    <div class="flex flex-col items-end max-w-[92%] self-end">
+      <div class="bg-[#E7F8E8] rounded-lg rounded-tr-none p-2 sm:p-2.5 shadow-xs border border-emerald-200/80 text-ink space-y-1">
+        <p class="leading-relaxed text-xs sm:text-[13px]">
+          Noted! Logged in tracker. Senthil from dispatch will confirm tracking by 10 AM tomorrow.
+        </p>
+        <div class="text-[9px] text-slate-500 text-right flex items-center justify-end gap-1">
+          <span>10:15 PM</span>
+          <span class="text-sky-600 font-bold">✓✓</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer note -->
+  <div class="bg-white px-3 py-1.5 border-t border-slate-200 text-center text-[10px] sm:text-[11px] text-slate-500">
+    <span>Tamil & English &bull; Responds in seconds &bull; Alerts team at night</span>
+  </div>
+</div>

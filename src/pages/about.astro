@@ -1,0 +1,316 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import TrustStrip from '../components/TrustStrip.astro';
+import CtaBand from '../components/CtaBand.astro';
+import PlaceholderChip from '../components/PlaceholderChip.astro';
+import { siteConfig } from '../config/site';
+
+const aboutSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: `About ${siteConfig.name}`,
+  description: 'Why GM Design exists, how we work, who is behind the work, and our commitments to Indian businesses.',
+  url: `${siteConfig.url}/about/`,
+};
+---
+
+<BaseLayout
+  title={`About ${siteConfig.name} — AI & Web Systems for Indian Businesses`}
+  description="Why GM Design exists: practical, fixed-price AI assistants and web systems for Indian small businesses. Plain language, honest team, zero hype."
+  jsonLd={aboutSchema}
+>
+  <!-- Page Header -->
+  <section class="pt-8 pb-10 sm:pt-14 sm:pb-14 bg-surface border-b border-border">
+    <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Breadcrumb -->
+      <nav class="flex items-center gap-2 text-xs text-ink-muted mb-4" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-accent transition-colors">Home</a>
+        <span aria-hidden="true">&bull;</span>
+        <span class="text-ink font-semibold" aria-current="page">About</span>
+      </nav>
+
+      <div class="max-w-3xl space-y-3">
+        <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-md text-[10px] sm:text-xs font-semibold bg-accent-soft text-accent border border-blue-100">
+          <span>Trust First &bull; Plain Language</span>
+        </div>
+
+        <h1 class="text-xl sm:text-3xl lg:text-[34px] font-bold tracking-tight text-ink leading-snug">
+          Practical technology for Indian business owners who value honesty over hype
+        </h1>
+
+        <p class="text-xs sm:text-sm text-body leading-relaxed max-w-prose">
+          We build reliable WhatsApp AI agents, automated workflows, and fast websites. Here is who we are, why we do this work, and the strict rules we work by.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key trust facts strip -->
+  <TrustStrip />
+
+  <!-- ========================================== -->
+  <!-- 1. WHY THIS COMPANY EXISTS (4-6 Sentences) -->
+  <!-- ========================================== -->
+  <section class="py-10 sm:py-18 bg-surface border-b border-border" aria-labelledby="why-we-exist-heading">
+    <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow="Our Purpose"
+        title="Why GM Design exists"
+      />
+
+      <div class="max-w-prose space-y-4 text-sm sm:text-base text-body leading-relaxed">
+        <p>
+          Most Indian small and mid-sized businesses lose hours every day to the same repetitive chores: re-typing purchase orders from WhatsApp into Excel, copying numbers into billing software, and answering late-night customer inquiries by hand.
+        </p>
+        <p>
+          At the same time, big tech firms build expensive, complicated enterprise software that is completely out of reach for a 5-person or 20-person company. Agencies sell buzzwords and hype without delivering real business time savings.
+        </p>
+        <p>
+          GM Design exists to give Indian business owners practical, affordable technology that actually works. We build WhatsApp AI agents, document processing pipelines, and clean websites with clear fixed prices and zero technical headaches.
+        </p>
+        <p>
+          We do not sell hype, we do not lock you into proprietary platforms, and we tell you directly on day one if AI is not the right tool for your problem.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 2. THE PEOPLE (Honest Team & Founder) -->
+  <!-- ========================================== -->
+  <section class="py-10 sm:py-18 bg-surface-soft border-b border-border" aria-labelledby="team-heading">
+    <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow="The Team"
+        title="Real people behind the work"
+        description="Rule 6: Be honest about size. No stock photos of fake teams in suits. If we are a lean team, we say so directly."
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl">
+        <!-- Founder Card -->
+        <div class="p-5 sm:p-7 rounded-xl border border-border bg-surface space-y-4 shadow-card">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-full bg-slate-900 text-white font-bold text-lg flex items-center justify-center shrink-0">
+              MS
+            </div>
+            <div>
+              <h3 class="text-base sm:text-lg font-bold text-ink leading-snug">
+                Monika Sadhasivam
+              </h3>
+              <p class="text-xs text-accent font-semibold">
+                Founder &amp; Principal
+              </p>
+            </div>
+          </div>
+
+          <p class="text-xs sm:text-sm text-body leading-relaxed">
+            Hands-on software engineer and product designer. Direct point of contact for every client project from initial listening call to deployment and ongoing support.
+          </p>
+
+          <div class="pt-2 border-t border-border flex items-center gap-2 text-xs">
+            <span class="text-ink-muted">Direct Contact:</span>
+            <a href={`mailto:${siteConfig.email}`} class="text-accent hover:underline font-medium">{siteConfig.email}</a>
+          </div>
+        </div>
+
+        <!-- Specialist Network Card -->
+        <div class="p-5 sm:p-7 rounded-xl border border-border bg-surface space-y-4">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-accent"></span>
+            <h3 class="text-base sm:text-lg font-bold text-ink">
+              Specialist Support Partners
+            </h3>
+          </div>
+          <p class="text-xs sm:text-sm text-body leading-relaxed">
+            When a project requires specialised scale, we collaborate with a trusted network of verified independent specialists:
+          </p>
+          <ul class="space-y-2 text-xs sm:text-sm text-ink-muted">
+            <li class="flex items-start gap-2">
+              <span class="text-accent font-bold">&bull;</span>
+              <span>Cloud infrastructure & server hardening engineers</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-accent font-bold">&bull;</span>
+              <span>Commercial offset & digital print production specialists in Chennai</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-accent font-bold">&bull;</span>
+              <span>Tamil language localization & copy proofreaders</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 3. HOW WE WORK (3 Core Principles) -->
+  <!-- ========================================== -->
+  <section class="py-10 sm:py-18 bg-surface border-b border-border" aria-labelledby="principles-heading">
+    <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow="Operating Principles"
+        title="Three principles we never compromise on"
+        description="How we conduct business, treat your data, and guarantee peace of mind."
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+        <!-- Principle 1 -->
+        <div class="p-5 sm:p-7 rounded-lg border border-border bg-surface-soft space-y-2.5">
+          <span class="text-xl font-mono font-bold text-accent">01</span>
+          <h3 class="text-base sm:text-lg font-bold text-ink">Proof beats claims</h3>
+          <p class="text-xs sm:text-sm text-body leading-relaxed">
+            We never ask you to trust vague promises. We show real working prototypes and test on your actual documents or chats before you commit capital.
+          </p>
+        </div>
+
+        <!-- Principle 2 -->
+        <div class="p-5 sm:p-7 rounded-lg border border-border bg-surface-soft space-y-2.5">
+          <span class="text-xl font-mono font-bold text-accent">02</span>
+          <h3 class="text-base sm:text-lg font-bold text-ink">Fixed milestone pricing</h3>
+          <p class="text-xs sm:text-sm text-body leading-relaxed">
+            You receive a written agreement with exact deliverables and milestone prices before work begins. No open-ended hourly meters or surprise invoices.
+          </p>
+        </div>
+
+        <!-- Principle 3 -->
+        <div class="p-5 sm:p-7 rounded-lg border border-border bg-surface-soft space-y-2.5">
+          <span class="text-xl font-mono font-bold text-accent">03</span>
+          <h3 class="text-base sm:text-lg font-bold text-ink">You own 100% of your tools</h3>
+          <p class="text-xs sm:text-sm text-body leading-relaxed">
+            All code, WhatsApp accounts, domain registrations, and data files remain in your company’s name. If we part ways, your systems continue working smoothly.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 4. WHAT WE WILL NOT DO -->
+  <!-- ========================================== -->
+  <section class="py-10 sm:py-18 bg-surface-soft border-b border-border" aria-labelledby="wont-do-heading">
+    <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow="Integrity Checklist"
+        title="What we will never do"
+        description="Our red lines. If an agency or developer does these things, you should walk away."
+      />
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-4xl">
+        <div class="p-4 sm:p-5 rounded-lg border border-rose-200 bg-rose-50/40 flex items-start gap-3">
+          <span class="text-rose-600 font-bold text-base shrink-0 mt-0.5">✕</span>
+          <p class="text-xs sm:text-sm text-ink font-medium leading-relaxed">
+            <strong>Never promise results we cannot prove:</strong> We will never guarantee "10x revenue" or arbitrary vanity numbers.
+          </p>
+        </div>
+
+        <div class="p-4 sm:p-5 rounded-lg border border-rose-200 bg-rose-50/40 flex items-start gap-3">
+          <span class="text-rose-600 font-bold text-base shrink-0 mt-0.5">✕</span>
+          <p class="text-xs sm:text-sm text-ink font-medium leading-relaxed">
+            <strong>Never sell AI where it doesn't fit:</strong> If a free spreadsheet, form, or standard WhatsApp setting solves your issue, we say so immediately.
+          </p>
+        </div>
+
+        <div class="p-4 sm:p-5 rounded-lg border border-rose-200 bg-rose-50/40 flex items-start gap-3">
+          <span class="text-rose-600 font-bold text-base shrink-0 mt-0.5">✕</span>
+          <p class="text-xs sm:text-sm text-ink font-medium leading-relaxed">
+            <strong>Never lock you into proprietary tools:</strong> Your data and code live in standard formats you can take anywhere.
+          </p>
+        </div>
+
+        <div class="p-4 sm:p-5 rounded-lg border border-rose-200 bg-rose-50/40 flex items-start gap-3">
+          <span class="text-rose-600 font-bold text-base shrink-0 mt-0.5">✕</span>
+          <p class="text-xs sm:text-sm text-ink font-medium leading-relaxed">
+            <strong>Never train public models on your data:</strong> All commercial API endpoints are configured with strict zero-training privacy.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 5. COMPANY FACTS TABLE (Rule 2 Verifiable) -->
+  <!-- ========================================== -->
+  <section class="py-10 sm:py-18 bg-surface border-b border-border" aria-labelledby="facts-heading">
+    <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+      <SectionHeading
+        eyebrow="Company Records"
+        title="Official Business Facts"
+        description="Public corporate details and verified credentials. Rule 2: Zero invented facts."
+      />
+
+      <div class="max-w-3xl overflow-hidden rounded-xl border border-border bg-surface shadow-xs">
+        <table class="w-full text-left text-xs sm:text-sm">
+          <tbody class="divide-y divide-border">
+            <tr>
+              <th scope="row" class="px-4 sm:px-6 py-3.5 bg-surface-soft font-semibold text-ink w-1/3">
+                Legal Business Name
+              </th>
+              <td class="px-4 sm:px-6 py-3.5 text-body font-medium">
+                GM Design
+              </td>
+            </tr>
+            <tr>
+              <th scope="row" class="px-4 sm:px-6 py-3.5 bg-surface-soft font-semibold text-ink">
+                Year Founded
+              </th>
+              <td class="px-4 sm:px-6 py-3.5 text-body font-medium">
+                2018
+              </td>
+            </tr>
+            <tr>
+              <th scope="row" class="px-4 sm:px-6 py-3.5 bg-surface-soft font-semibold text-ink">
+                Headquarters / Working City
+              </th>
+              <td class="px-4 sm:px-6 py-3.5 text-body font-medium">
+                Karur, Tamil Nadu
+              </td>
+            </tr>
+            <tr>
+              <th scope="row" class="px-4 sm:px-6 py-3.5 bg-surface-soft font-semibold text-ink">
+                Physical Working Address
+              </th>
+              <td class="px-4 sm:px-6 py-3.5 text-body font-medium">
+                Vengamedu, Karur, Tamil Nadu
+              </td>
+            </tr>
+            <tr>
+              <th scope="row" class="px-4 sm:px-6 py-3.5 bg-surface-soft font-semibold text-ink">
+                Official Contact Email
+              </th>
+              <td class="px-4 sm:px-6 py-3.5 text-body font-mono">
+                <a href={`mailto:${siteConfig.email}`} class="text-accent hover:underline">
+                  {siteConfig.email}
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row" class="px-4 sm:px-6 py-3.5 bg-surface-soft font-semibold text-ink">
+                Official Business Phone / WhatsApp
+              </th>
+              <td class="px-4 sm:px-6 py-3.5 text-body font-medium">
+                <a href={siteConfig.whatsappHref} target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">
+                  +91 99445 26954
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 6. CTA BAND -->
+  <!-- ========================================== -->
+  <section class="py-10 sm:py-20 bg-surface-soft" aria-label="Book a call">
+    <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+      <CtaBand
+        headline="Ready to see if AI fits your business?"
+        subheadline="Book a free 30-minute call with our team. We listen to your workflow, verify feasibility on your data, and tell you honestly what makes sense."
+        showForm={true}
+      />
+    </div>
+  </section>
+</BaseLayout>

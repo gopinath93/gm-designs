@@ -1,0 +1,76 @@
+---
+interface Props {
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+  target?: string;
+  rel?: string;
+  ariaLabel?: string;
+  [key: string]: any;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  type = 'button',
+  class: className = '',
+  target,
+  rel,
+  ariaLabel,
+  ...rest
+} = Astro.props;
+
+const baseStyles =
+  'inline-flex items-center justify-center font-medium transition-colors duration-180 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-60 disabled:cursor-not-allowed select-none min-h-[44px] min-w-[44px]';
+
+const variantStyles = {
+  primary:
+    'bg-accent text-white hover:bg-accent-hover active:bg-blue-900 shadow-sm border border-transparent rounded-md',
+  secondary:
+    'bg-ink text-white hover:bg-slate-800 active:bg-slate-950 shadow-sm border border-transparent rounded-md',
+  outline:
+    'bg-surface text-ink border border-border hover:border-slate-400 hover:bg-surface-soft active:bg-slate-100 rounded-md',
+  ghost:
+    'bg-transparent text-accent hover:text-accent-hover hover:bg-accent-soft active:bg-accent-muted rounded-md',
+};
+
+const sizeStyles = {
+  sm: 'text-xs px-3 py-1.5 gap-1.5 font-medium',
+  md: 'text-sm px-4 py-2 gap-2 font-semibold',
+  lg: 'text-sm sm:text-base px-5 py-2.5 sm:px-6 sm:py-3 gap-2 font-semibold',
+};
+
+const combinedClasses = [
+  baseStyles,
+  variantStyles[variant],
+  sizeStyles[size],
+  className,
+].join(' ');
+---
+
+{
+  href ? (
+    <a
+      href={href}
+      class={combinedClasses}
+      target={target}
+      rel={target === '_blank' ? 'noopener noreferrer ' + (rel || '') : rel}
+      aria-label={ariaLabel}
+      {...rest}
+    >
+      <slot />
+    </a>
+  ) : (
+    <button
+      type={type}
+      class={combinedClasses}
+      aria-label={ariaLabel}
+      {...rest}
+    >
+      <slot />
+    </button>
+  )
+}

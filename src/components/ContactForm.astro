@@ -1,0 +1,238 @@
+---
+import Button from './Button.astro';
+
+interface Props {
+  compact?: boolean;
+  class?: string;
+}
+
+const { compact = false, class: className = '' } = Astro.props;
+---
+
+<form
+  id={compact ? 'quick-contact-form' : 'full-contact-form'}
+  action="/functions/api/contact"
+  method="POST"
+  class:list={['space-y-3.5 sm:space-y-4 text-left', className]}
+  novalidate
+>
+  <!-- Honeypot anti-spam field (hidden from humans) -->
+  <div class="hidden" aria-hidden="true">
+    <label for={compact ? 'quick-website-hp' : 'full-website-hp'}>Leave this field blank</label>
+    <input
+      type="text"
+      name="b_url"
+      id={compact ? 'quick-website-hp' : 'full-website-hp'}
+      tabindex="-1"
+      autocomplete="off"
+    />
+  </div>
+
+  <!-- Field 1: Name -->
+  <div>
+    <label
+      for={compact ? 'quick-name' : 'full-name'}
+      class="block text-xs sm:text-sm font-semibold text-ink mb-1"
+    >
+      Your Name <span class="text-rose-600" aria-hidden="true">*</span>
+    </label>
+    <input
+      type="text"
+      name="name"
+      id={compact ? 'quick-name' : 'full-name'}
+      required
+      placeholder="e.g. Anand Kumar"
+      class="w-full px-3 py-2 sm:px-3.5 sm:py-2.5 text-xs sm:text-base text-ink bg-surface border border-border rounded-md min-h-tap focus:border-accent focus:ring-1 focus:ring-accent focus:outline-none transition-colors"
+    />
+  </div>
+
+  <!-- Field 2: WhatsApp / Phone -->
+  <div>
+    <label
+      for={compact ? 'quick-phone' : 'full-phone'}
+      class="block text-xs sm:text-sm font-semibold text-ink mb-1"
+    >
+      WhatsApp Number <span class="text-rose-600" aria-hidden="true">*</span>
+    </label>
+    <input
+      type="tel"
+      name="phone"
+      id={compact ? 'quick-phone' : 'full-phone'}
+      required
+      placeholder="e.g. +91 98765 43210"
+      class="w-full px-3 py-2 sm:px-3.5 sm:py-2.5 text-xs sm:text-base text-ink bg-surface border border-border rounded-md min-h-tap focus:border-accent focus:ring-1 focus:ring-accent focus:outline-none transition-colors"
+    />
+    <p class="text-[10px] sm:text-[11px] text-ink-muted mt-1">
+      We only message you about your enquiry. No spam or sales broadcasts.
+    </p>
+  </div>
+
+  {!compact && (
+    <!-- Field 3: Email (Optional) -->
+    <div>
+      <label
+        for="full-email"
+        class="block text-xs sm:text-sm font-semibold text-ink mb-1"
+      >
+        Email address <span class="text-ink-muted text-xs font-normal">(optional)</span>
+      </label>
+      <input
+        type="email"
+        name="email"
+        id="full-email"
+        placeholder="you@company.in"
+        class="w-full px-3 py-2 sm:px-3.5 sm:py-2.5 text-xs sm:text-base text-ink bg-surface border border-border rounded-md min-h-tap focus:border-accent focus:ring-1 focus:ring-accent focus:outline-none transition-colors"
+      />
+    </div>
+  )}
+
+  <!-- Field: Need / Service Type -->
+  <div>
+    <label
+      for={compact ? 'quick-need' : 'full-need'}
+      class="block text-xs sm:text-sm font-semibold text-ink mb-1"
+    >
+      {compact ? 'One-line need' : 'What do you need help with?'} <span class="text-rose-600" aria-hidden="true">*</span>
+    </label>
+    {compact ? (
+      <input
+        type="text"
+        name="need"
+        id="quick-need"
+        required
+        placeholder="e.g. Auto-reply to customer quotes on WhatsApp"
+        class="w-full px-3 py-2 sm:px-3.5 sm:py-2.5 text-xs sm:text-base text-ink bg-surface border border-border rounded-md min-h-tap focus:border-accent focus:ring-1 focus:ring-accent focus:outline-none transition-colors"
+      />
+    ) : (
+      <select
+        name="need"
+        id="full-need"
+        required
+        class="w-full px-3 py-2 sm:px-3.5 sm:py-2.5 text-xs sm:text-base text-ink bg-surface border border-border rounded-md min-h-tap focus:border-accent focus:ring-1 focus:ring-accent focus:outline-none transition-colors"
+      >
+        <option value="" disabled selected>Select an option...</option>
+        <option value="whatsapp-ai">WhatsApp AI Agent (answers questions / orders)</option>
+        <option value="workflow-automation">Workflow Automation (Sheets, Tally, CRM, PDF)</option>
+        <option value="website-assistant">Website AI Assistant</option>
+        <option value="ai-audit">1-Week AI Audit & Training</option>
+        <option value="website-design">Website Design & Development</option>
+        <option value="marketing-branding">Digital Marketing / Branding</option>
+        <option value="not-sure">Not sure yet (need advice)</option>
+      </select>
+    )}
+  </div>
+
+  {!compact && (
+    <!-- Field: Detailed message -->
+    <div>
+      <label
+        for="full-message"
+        class="block text-xs sm:text-sm font-semibold text-ink mb-1"
+      >
+        What slows your team down today? <span class="text-ink-muted text-xs font-normal">(optional)</span>
+      </label>
+      <textarea
+        name="message"
+        id="full-message"
+        rows="3"
+        placeholder="e.g. We get 40 WhatsApp messages daily asking for price lists. It takes 2 staff members 3 hours to respond."
+        class="w-full px-3 py-2 sm:px-3.5 sm:py-2.5 text-xs sm:text-base text-ink bg-surface border border-border rounded-md focus:border-accent focus:ring-1 focus:ring-accent focus:outline-none transition-colors"
+      ></textarea>
+    </div>
+  )}
+
+  <!-- Consent Checkbox -->
+  <div class="flex items-start gap-2 pt-1">
+    <input
+      type="checkbox"
+      id={compact ? 'quick-consent' : 'full-consent'}
+      name="consent"
+      required
+      class="mt-1 rounded border-border text-accent focus:ring-accent shrink-0"
+    />
+    <label
+      for={compact ? 'quick-consent' : 'full-consent'}
+      class="text-[11px] sm:text-xs text-body leading-tight select-none"
+    >
+      I agree to be contacted via WhatsApp/phone regarding this request. See our <a href="/privacy/" class="text-accent underline font-medium">Privacy Policy</a>.
+    </label>
+  </div>
+
+  <!-- Form Status Feedback Box -->
+  <div
+    class="form-feedback hidden p-3 rounded-md text-xs sm:text-sm font-medium"
+    role="alert"
+    aria-live="polite"
+  ></div>
+
+  <!-- Submit Button -->
+  <div class="pt-1 sm:pt-2">
+    <Button
+      type="submit"
+      variant="primary"
+      size="md"
+      class="w-full font-semibold justify-center text-sm sm:text-base py-3"
+    >
+      <span>Send enquiry &rarr;</span>
+    </Button>
+  </div>
+</form>
+
+<script>
+  // Plain, progressive-enhancement form handler
+  const forms = document.querySelectorAll('form[action*="/functions/api/contact"]');
+
+  forms.forEach((form) => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formEl = form as HTMLFormElement;
+      const feedback = formEl.querySelector('.form-feedback') as HTMLElement;
+      const submitBtn = formEl.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+      // Basic client validation
+      if (!formEl.checkValidity()) {
+        formEl.reportValidity();
+        return;
+      }
+
+      if (feedback) {
+        feedback.className = 'form-feedback p-3 rounded-md text-xs sm:text-sm font-medium bg-blue-50 text-blue-900 border border-blue-200';
+        feedback.textContent = 'Sending your message securely...';
+        feedback.classList.remove('hidden');
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+      }
+
+      try {
+        const formData = new FormData(formEl);
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: formData,
+        });
+
+        if (res.ok) {
+          if (feedback) {
+            feedback.className = 'form-feedback p-3 rounded-md text-xs sm:text-sm font-medium bg-emerald-50 text-emerald-900 border border-emerald-200';
+            feedback.textContent = '✅ Message received! We will reply on WhatsApp within 1 working day.';
+          }
+          formEl.reset();
+        } else {
+          const data = await res.json().catch(() => ({}));
+          throw new Error(data.message || 'Submission failed');
+        }
+      } catch (err: any) {
+        if (feedback) {
+          feedback.className = 'form-feedback p-3 rounded-md text-xs sm:text-sm font-medium bg-rose-50 text-rose-900 border border-rose-200';
+          feedback.innerHTML = `⚠️ Couldn't submit form online. Please message us directly on WhatsApp or email <a href="mailto:contact@gmdesign.in" class="underline">contact@gmdesign.in</a>.`;
+        }
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+        }
+      }
+    });
+  });
+</script>

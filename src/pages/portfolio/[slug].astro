@@ -1,0 +1,294 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/Button.astro';
+import PlaceholderChip from '../../components/PlaceholderChip.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { portfolioItems, type PortfolioItem } from '../../data/portfolio';
+
+export function getStaticPaths() {
+  return portfolioItems.map((item) => ({
+    params: { slug: item.slug },
+    props: { item },
+  }));
+}
+
+interface Props {
+  item: PortfolioItem;
+}
+
+const { item } = Astro.props;
+
+const statusConfig: Record<
+  string,
+  { label: string; bg: string; text: string; border: string }
+> = {
+  client: {
+    label: 'Client Project',
+    bg: 'bg-emerald-50',
+    text: 'text-emerald-800',
+    border: 'border-emerald-200',
+  },
+  pilot: {
+    label: 'Pilot',
+    bg: 'bg-blue-50',
+    text: 'text-blue-800',
+    border: 'border-blue-200',
+  },
+  prototype: {
+    label: 'In-house Prototype',
+    bg: 'bg-amber-50',
+    text: 'text-amber-800',
+    border: 'border-amber-200',
+  },
+  demo: {
+    label: 'Interactive Demo',
+    bg: 'bg-purple-50',
+    text: 'text-purple-800',
+    border: 'border-purple-200',
+  },
+  archive: {
+    label: 'Archive Work',
+    bg: 'bg-slate-100',
+    text: 'text-slate-700',
+    border: 'border-slate-200',
+  },
+};
+
+const badge = statusConfig[item.status] || statusConfig.prototype;
+
+// Construct JSON-LD CreativeWork Schema
+const caseStudySchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: item.title,
+  headline: item.summary,
+  about: item.category,
+  dateCreated: item.year.includes('CONFIRM') ? '2023' : item.year,
+  creator: {
+    '@type': 'Organization',
+    name: 'GM Design',
+  },
+};
+---
+
+<BaseLayout
+  title={`${item.title} — Case Study | GM Design`}
+  description={`${item.summary} Solved for ${item.clientType}.`}
+  jsonLd={caseStudySchema}
+>
+  <!-- Case Study Header -->
+  <article class="pt-8 pb-12 sm:pt-14 sm:pb-16 bg-surface border-b border-border">
+    <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Breadcrumb -->
+      <nav class="flex items-center gap-2 text-xs text-ink-muted mb-4" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-accent transition-colors">Home</a>
+        <span aria-hidden="true">&bull;</span>
+        <a href="/portfolio/" class="hover:text-accent transition-colors">Portfolio</a>
+        <span aria-hidden="true">&bull;</span>
+        <span class="text-ink font-semibold truncate max-w-[200px] sm:max-w-none" aria-current="page">
+          {item.title}
+        </span>
+      </nav>
+
+      <div class="max-w-3xl space-y-4">
+        <!-- Status & Category Badges -->
+        <div class="flex flex-wrap items-center gap-2">
+          <span
+            class:list={[
+              'inline-flex items-center px-2.5 py-0.5 rounded text-xs font-semibold border',
+              badge.bg,
+              badge.text,
+              badge.border,
+            ]}
+          >
+            {badge.label}
+          </span>
+          <span class="text-xs font-medium text-ink-muted bg-surface-soft px-2.5 py-0.5 rounded border border-border">
+            {item.category}
+          </span>
+          <span class="text-xs font-mono text-ink-muted">
+            Year: {
+              item.year.includes('CONFIRM') ? (
+                <PlaceholderChip needed="year completed">{item.year}</PlaceholderChip>
+              ) : (
+                item.year
+              )
+            }
+          </span>
+        </div>
+
+        <!-- Main Title -->
+        <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-ink leading-snug">
+          {item.title}
+        </h1>
+
+        <!-- One-sentence summary -->
+        <p class="text-xs sm:text-sm text-body leading-relaxed max-w-prose">
+          {item.summary}
+        </p>
+
+        <!-- Client & Live Link Row -->
+        <div class="pt-2 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm border-t border-border pt-4">
+          <div class="space-y-0.5">
+            <span class="text-ink-muted block text-xs">Client / Organization:</span>
+            <span class="font-bold text-ink">
+              {item.clientName || item.clientType}
+            </span>
+          </div>
+
+          {item.liveUrl && (
+            <div>
+              <a
+                href={item.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-soft hover:bg-slate-200 text-ink font-semibold rounded-md border border-border transition-colors text-xs min-h-[36px]"
+              >
+                <span>Visit live project</span>
+                <span aria-hidden="true">&nearr;</span>
+              </a>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Case Study Core Body (< 400 words) -->
+  <section class="py-10 sm:py-16 bg-surface-soft border-b border-border">
+    <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        <!-- Left: Case Study Narrative (Problem, Solution, Result) -->
+        <div class="lg:col-span-7 space-y-6">
+          <!-- 1. The Problem -->
+          <div class="p-5 sm:p-7 rounded-lg border border-border bg-surface space-y-2.5">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+              <h2 class="text-base sm:text-lg font-bold text-ink">The Problem</h2>
+            </div>
+            <p class="text-xs sm:text-sm text-body leading-relaxed">
+              {item.problem}
+            </p>
+          </div>
+
+          <!-- 2. What We Built -->
+          <div class="p-5 sm:p-7 rounded-lg border border-border bg-surface space-y-2.5">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-accent"></span>
+              <h2 class="text-base sm:text-lg font-bold text-ink">What We Built</h2>
+            </div>
+            <p class="text-xs sm:text-sm text-body leading-relaxed">
+              {item.solution}
+            </p>
+          </div>
+
+          <!-- 3. Measured Result -->
+          <div class="p-4 sm:p-6 rounded-lg border border-blue-200 bg-blue-50/40 space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
+              <h2 class="text-sm sm:text-base font-bold text-ink">Measured Outcome / Result</h2>
+            </div>
+            <div class="text-xs sm:text-sm text-ink font-semibold leading-relaxed">
+              {
+                item.result.includes('CONFIRM') ? (
+                  <PlaceholderChip needed="verified project result / metric">
+                    {item.result}
+                  </PlaceholderChip>
+                ) : (
+                  item.result
+                )
+              }
+            </div>
+          </div>
+
+          <!-- 4. Tools & Technologies -->
+          <div class="p-4 sm:p-5 rounded-lg border border-border bg-surface">
+            <span class="block text-xs font-bold uppercase tracking-wider text-ink-muted mb-2">
+              Tools & Stack Used
+            </span>
+            <div class="flex flex-wrap items-center gap-2">
+              {
+                item.stack.map((st) => (
+                  <span class="px-2.5 py-1 bg-surface-soft rounded border border-border text-xs font-mono text-ink">
+                    {st}
+                  </span>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Visual Asset or Architecture Display -->
+        <div class="lg:col-span-5 space-y-4">
+          {item.image ? (
+            <div class="rounded-xl border border-border bg-surface overflow-hidden shadow-card">
+              <img
+                src={item.image}
+                alt={item.imageAlt || item.title}
+                class="w-full h-auto object-cover"
+                width="800"
+                height="600"
+                loading="lazy"
+              />
+              <div class="p-3 bg-surface-soft border-t border-border text-[11px] text-ink-muted text-center">
+                <span>{item.imageAlt || item.title}</span>
+              </div>
+            </div>
+          ) : (
+            <!-- Typographic Architecture Box for AI / Backend Tools -->
+            <div class="p-6 rounded-xl border border-border bg-surface shadow-card space-y-4">
+              <div class="flex items-center justify-between pb-3 border-b border-border">
+                <span class="text-xs font-mono uppercase tracking-wider text-accent font-bold">
+                  System Architecture
+                </span>
+                <span class="text-[11px] text-ink-muted font-mono">{item.category}</span>
+              </div>
+
+              <div class="space-y-3 font-mono text-xs">
+                <div class="p-2.5 bg-surface-soft rounded border border-border">
+                  <span class="text-ink-muted block text-[10px] uppercase">Input Stage:</span>
+                  <span class="text-ink font-semibold">User Query / Webhook Event</span>
+                </div>
+                <div class="text-center text-slate-400 font-bold">&darr;</div>
+                <div class="p-2.5 bg-accent-soft rounded border border-blue-200">
+                  <span class="text-accent block text-[10px] uppercase font-bold">Execution Engine:</span>
+                  <span class="text-ink font-semibold">{item.stack[0]} + {item.stack[1] || 'Logic Engine'}</span>
+                </div>
+                <div class="text-center text-slate-400 font-bold">&darr;</div>
+                <div class="p-2.5 bg-surface-soft rounded border border-border">
+                  <span class="text-ink-muted block text-[10px] uppercase">Verified Output:</span>
+                  <span class="text-ink font-semibold">Google Sheets Sync & Human Handover Alert</span>
+                </div>
+              </div>
+
+              <p class="text-xs text-ink-muted text-center pt-2">
+                Designed with zero third-party data retention.
+              </p>
+            </div>
+          )}
+
+          <!-- Back to portfolio link -->
+          <div class="text-center pt-2">
+            <a
+              href="/portfolio/"
+              class="inline-flex items-center gap-1.5 text-xs font-semibold text-accent hover:text-accent-hover min-h-tap py-2"
+            >
+              <span>&larr; View all case studies and projects</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="py-10 sm:py-20 bg-surface" aria-label="Book a call">
+    <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+      <CtaBand
+        headline="Want a similar system built for your business?"
+        subheadline="Book a free 30-minute call. We listen to your workflow, verify feasibility on your data, and provide a fixed-price written proposal in 2 working days."
+        showForm={true}
+      />
+    </div>
+  </section>
+</BaseLayout>

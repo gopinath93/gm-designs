@@ -1,0 +1,23 @@
+---
+interface Props {
+  needed?: string;
+  class?: string;
+}
+
+const { needed, class: className = '' } = Astro.props;
+---
+
+<span
+  class:list={[
+    'inline-flex flex-wrap items-center gap-1 px-1.5 py-0.5 rounded text-[11px] sm:text-xs font-mono font-medium max-w-full break-all',
+    'bg-amber-100 text-amber-950 border border-amber-300 shadow-xs',
+    'align-baseline select-all',
+    className,
+  ]}
+  title="Action required by site owner before launch"
+  data-placeholder="true"
+>
+  <span class="inline-block w-1.5 h-1.5 rounded-full bg-amber-600 animate-pulse shrink-0"></span>
+  <span class="font-bold shrink-0">CONFIRM:</span>
+  <span class="break-words"><slot>{needed}</slot></span>
+</span>

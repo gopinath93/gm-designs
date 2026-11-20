@@ -1,0 +1,190 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import TrustStrip from '../../components/TrustStrip.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { servicesData } from '../../data/services';
+
+const aiServices = servicesData.filter((s) => s.category === 'ai');
+const marketingServices = servicesData.filter((s) => s.category === 'marketing');
+---
+
+<BaseLayout
+  title="AI Services & Web Systems for Indian Businesses — GM Design"
+  description="Practical WhatsApp AI agents, workflow automations, and trustworthy websites built for Indian small and mid-size businesses. Fixed-price, plain language."
+>
+  <!-- Hub Header -->
+  <section class="pt-8 pb-12 sm:pt-14 sm:pb-16 bg-surface border-b border-border">
+    <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Breadcrumb -->
+      <nav class="flex items-center gap-2 text-xs text-ink-muted mb-4" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-accent transition-colors">Home</a>
+        <span aria-hidden="true">&bull;</span>
+        <span class="text-ink font-semibold" aria-current="page">Services</span>
+      </nav>
+
+      <div class="max-w-3xl space-y-3">
+        <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-md text-[10px] sm:text-xs font-semibold bg-accent-soft text-accent border border-blue-100">
+          <span>Practical, Fixed-Price Digital Systems</span>
+        </div>
+
+        <h1 class="text-xl sm:text-3xl lg:text-[34px] font-bold tracking-tight text-ink leading-snug">
+          Services built for small &amp; mid-size Indian businesses
+        </h1>
+
+        <p class="text-xs sm:text-sm text-body leading-relaxed max-w-prose">
+          We help business owners automate daily repetitive chores and project a trustworthy image. Every project has a written fixed price, milestone payments, and zero proprietary lock-in.
+        </p>
+
+        <!-- Quick anchor jumps -->
+        <div class="pt-1 flex flex-wrap items-center gap-2 text-xs">
+          <span class="text-ink-muted">Jump to:</span>
+          <a
+            href="#ai-services"
+            class="px-2.5 py-1 bg-surface-soft hover:bg-slate-200 text-ink font-semibold rounded-md border border-border transition-colors"
+          >
+            AI Services (Core) &darr;
+          </a>
+          <a
+            href="#websites-marketing"
+            class="px-2.5 py-1 bg-surface-soft hover:bg-slate-200 text-ink font-semibold rounded-md border border-border transition-colors"
+          >
+            Websites &amp; Marketing &darr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key trust facts strip -->
+  <TrustStrip />
+
+  <!-- ========================================== -->
+  <!-- BLOCK A: AI SERVICES (First, ~70% of page) -->
+  <!-- ========================================== -->
+  <section id="ai-services" class="py-10 sm:py-16 bg-surface border-b border-border scroll-mt-20">
+    <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-4 border-b border-border">
+        <div>
+          <div class="inline-flex items-center gap-2 mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-accent bg-accent-soft px-2.5 py-0.5 rounded border border-blue-100">
+              Block A &bull; Core Focus
+            </span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-ink">
+            AI as a Service for Indian Businesses
+          </h2>
+          <p class="text-xs sm:text-base text-body mt-1 max-w-2xl leading-relaxed">
+            WhatsApp AI assistants, document extractors, and workflow automations that free up your office staff from endless manual tasks.
+          </p>
+        </div>
+
+        <div class="text-xs text-ink-muted shrink-0 flex items-center gap-1.5 bg-surface-soft p-2.5 rounded border border-border">
+          <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+          </svg>
+          <span>Tamil & English conversation support</span>
+        </div>
+      </div>
+
+      <!-- Grid of 6 AI Services -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+        {
+          aiServices.map((service) => (
+            <ServiceCard
+              title={service.serviceName}
+              outcome={service.cardSummary}
+              priceFrom={service.timeAndPrice.startingPrice}
+              suggestedPrice={service.timeAndPrice.suggestedPrice}
+              href={`/services/${service.slug}/`}
+              badge={service.badge}
+              isAi={true}
+              bullets={service.whatYouGet.slice(0, 3)}
+            />
+          ))
+        }
+      </div>
+
+      <!-- Entry offer highlight card -->
+      <div class="p-4 sm:p-6 rounded-xl bg-blue-50/50 border border-blue-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-blue-800 bg-blue-100 px-2 py-0.5 rounded">
+              Low-Risk First Purchase
+            </span>
+            <span class="text-xs text-blue-900 font-semibold">1-Week Fixed Review</span>
+          </div>
+          <h3 class="text-sm sm:text-base font-bold text-ink">
+            Unsure where to start? Book the 1-Week AI Audit &amp; Training
+          </h3>
+          <p class="text-xs sm:text-sm text-body leading-relaxed max-w-2xl">
+            We spend 5 days reviewing your current operations, identify your top 3 time-wasting tasks, and tell you exactly what AI will cost and save. 50% credited towards your build.
+          </p>
+        </div>
+        <a
+          href="/services/ai-audit-training/"
+          class="shrink-0 px-4 py-2.5 bg-accent hover:bg-accent-hover text-white text-xs sm:text-sm font-semibold rounded-md transition-colors shadow-xs"
+        >
+          Explore AI Audit &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- BLOCK B: WEBSITES & MARKETING (Proven Work) -->
+  <!-- ========================================== -->
+  <section id="websites-marketing" class="py-12 sm:py-20 bg-surface-soft border-b border-border scroll-mt-20">
+    <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-4 border-b border-border">
+        <div>
+          <div class="inline-flex items-center gap-2 mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-ink-muted bg-surface px-2.5 py-0.5 rounded border border-border">
+              Block B &bull; Established Work
+            </span>
+          </div>
+          <h2 class="text-xl sm:text-3xl font-bold tracking-tight text-ink">
+            Websites, Search & Brand Marketing
+          </h2>
+          <p class="text-xs sm:text-base text-body mt-1 max-w-2xl leading-relaxed">
+            Fast, clean, conversion-focused websites, Google Maps local rankings, and professional branding delivered since our founding.
+          </p>
+        </div>
+
+        <div class="text-xs text-ink-muted shrink-0 flex items-center gap-1.5 bg-surface p-2.5 rounded border border-border">
+          <span>Sub-2-second mobile load times &bull; Zero bloat</span>
+        </div>
+      </div>
+
+      <!-- Grid of 5 Marketing Services -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+        {
+          marketingServices.map((service) => (
+            <ServiceCard
+              title={service.serviceName}
+              outcome={service.cardSummary}
+              priceFrom={service.timeAndPrice.startingPrice}
+              suggestedPrice={service.timeAndPrice.suggestedPrice}
+              href={`/services/${service.slug}/`}
+              badge={service.badge}
+              isAi={false}
+              bullets={service.whatYouGet.slice(0, 3)}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="py-12 sm:py-20 bg-surface" aria-label="Book a call">
+    <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+      <CtaBand
+        headline="Tell us what slows your business down"
+        subheadline="We will schedule a 30-minute listening call and give you an honest recommendation on whether an AI agent, a workflow, or a clean website is right for you."
+        showForm={true}
+      />
+    </div>
+  </section>
+</BaseLayout>
